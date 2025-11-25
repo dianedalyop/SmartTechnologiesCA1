@@ -31,3 +31,9 @@ cifar100_classes = [
 ]
 
 cifar100_relevant = [19, 34, 2, 11, 35, 76, 38, 57, 84, 27, 8, 13, 48, 58, 92, 61, 99]  
+
+
+
+def classes_filter(x, y, relevant_index):
+    mask = np.isin(y, relevant_index).flatten()
+    return x[mask], y[mask]
