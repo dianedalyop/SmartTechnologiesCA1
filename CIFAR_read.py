@@ -17,6 +17,7 @@ cifar10_relevant = [1, 2, 3, 4, 5, 7, 9]
 # Required data automobile, bird, cat, deer, dog, horse, truck
 
 
+
 cifar100_classes = [
     'apple','aquarium_fish','baby','bear','beaver','bed','bee','beetle','bicycle','bottle',
     'bowl','boy','bridge','bus','butterfly','camel','can','castle','caterpillar','cattle',
