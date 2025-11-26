@@ -70,6 +70,49 @@ final_classes = [ # CIFAR-10
     "bicycle", "bus", "motorcycle", "pickup_truck", "train", "lawn-mower", "tractor"
 ]
 
+### map each class
+# label cifar10 classes
+cifar10_to_final = {
+    1: 0,  # automobile
+    2: 1,  # bird
+    3: 2,  # cat
+    4: 3,  # deer
+    5: 4,  # dog
+    7: 5,  # horse
+    9: 6   # truck
+}
+
+# label cifar100 classes
+cifar100_to_final = {
+    19: 7,   # cattle
+    34: 8,   # fox
+    2:  9,   # baby
+    11: 10,  # boy
+    35: 11,  # girl
+    46: 12,  # man
+    98: 13,  # woman
+    65: 14,  # rabbit
+    80: 15,  # squirrel
+
+    # all types of tree
+    47: 16,  # maple_tree
+    52: 16,  # oak_tree
+    56: 16,  # palm_tree
+    59: 16,  # pine_tree
+    96: 16,  # willow_tree
+
+    8:  17,  # bicycle
+    13: 18,  # bus
+    48: 19,  # motorcycle
+    58: 20,  # pickup_truck
+    90: 21,  # train
+    41: 22,  # lawn-mower
+    89: 23   # tractor
+}
+
+
+
+
 
 
 def classes_filter(x, y, relevant_index):
