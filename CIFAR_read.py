@@ -14,25 +14,10 @@ from tensorflow.keras.datasets import cifar10, cifar100
 
 cifar10_classes = ['airplane', 'automobile', 'bird', 'cat', 'deer', 
                    'dog', 'frog', 'horse', 'ship', 'truck']
-cifar10_relevant = [1, 2, 3, 4, 5, 7, 9]  
+cifar10_relevant = [1, 2, 3, 4, 5, 7, 9]  #automobile, bird, cat, deer, dog, horse, truck
+
 
 # Required data automobile, bird, cat, deer, dog, horse, truck
-
-
-
-cifar100_classes = [
-    'apple','aquarium_fish','baby','bear','beaver','bed','bee','beetle','bicycle','bottle',
-    'bowl','boy','bridge','bus','butterfly','camel','can','castle','caterpillar','cattle',
-    'chair','chimpanzee','clock','cloud','cockroach','couch','crab','crocodile','cup','dinosaur',
-    'dolphin','elephant','flatfish','forest','fox','girl','hamster','house','kangaroo','keyboard',
-    'lamp','lawn-mower','leopard','lion','lizard','lobster','man','maple_tree','motorcycle','mountain',
-    'mouse','mushroom','oak_tree','orange','orchid','otter','palm_tree','pear','pickup_truck','pine_tree',
-    'plain','plate','poppy','porcupine','possum','rabbit','raccoon','ray','road','rocket',
-    'rose','sea','seal','shark','shrew','skunk','skyscraper','snail','snake','spider',
-    'squirrel','streetcar','sunflower','sweet_pepper','table','tank','telephone','television','tiger','tractor',
-    'train','trout','tulip','turtle','wardrobe','whale','willow_tree','wolf','woman','worm'
-]
-
 #cifar100_relevant = [19, 34, 2, 11, 35, 76, 38, 57, 84, 27, 8, 13, 48, 58, 92, 61, 99]  
 
 # CIFAR-100 fixed 
@@ -60,8 +45,18 @@ cifar100_relevant = [
     89   # tractor
 ]
 
-
-
+cifar100_classes = [
+    'apple','aquarium_fish','baby','bear','beaver','bed','bee','beetle','bicycle','bottle',
+    'bowl','boy','bridge','bus','butterfly','camel','can','castle','caterpillar','cattle',
+    'chair','chimpanzee','clock','cloud','cockroach','couch','crab','crocodile','cup','dinosaur',
+    'dolphin','elephant','flatfish','forest','fox','girl','hamster','house','kangaroo','keyboard',
+    'lamp','lawn-mower','leopard','lion','lizard','lobster','man','maple_tree','motorcycle','mountain',
+    'mouse','mushroom','oak_tree','orange','orchid','otter','palm_tree','pear','pickup_truck','pine_tree',
+    'plain','plate','poppy','porcupine','possum','rabbit','raccoon','ray','road','rocket',
+    'rose','sea','seal','shark','shrew','skunk','skyscraper','snail','snake','spider',
+    'squirrel','streetcar','sunflower','sweet_pepper','table','tank','telephone','television','tiger','tractor',
+    'train','trout','tulip','turtle','wardrobe','whale','willow_tree','wolf','woman','worm'
+]
 
 final_classes = [ # CIFAR-10
                     "automobile", "bird", "cat", "deer", "dog", "horse", "truck",
@@ -69,6 +64,8 @@ final_classes = [ # CIFAR-10
     "cattle", "fox", "baby", "boy", "girl", "man", "woman", "rabbit", "squirrel", "trees",
     "bicycle", "bus", "motorcycle", "pickup_truck", "train", "lawn-mower", "tractor"
 ]
+
+
 
 ### map each class
 # label cifar10 classes
@@ -81,7 +78,6 @@ cifar10_to_final = {
     7: 5,  # horse
     9: 6   # truck
 }
-
 # label cifar100 classes
 cifar100_to_final = {
     19: 7,   # cattle
@@ -112,9 +108,6 @@ cifar100_to_final = {
 
 
 
-
-
-
 def classes_filter(x, y, relevant_index):
     mask = np.isin(y, relevant_index).flatten()
     return x[mask], y[mask]
@@ -134,3 +127,37 @@ print("CIFAR-10 filtered test shape:",  x_test10_filt.shape,  y_test10_filt.shap
 print("CIFAR-100 filtered train shape:", x_train100_filt.shape, y_train100_filt.shape)
 print("CIFAR-100 filtered test shape:",  x_test100_filt.shape,  y_test100_filt.shape)
 
+
+
+
+def remap_labels(y, mapping_dict):
+    """
+    y: label array (N x 1)
+    mapping_dict: dict from original label -> new label (0..23)
+    """
+    y = y.flatten()
+    new_y = np.array([mapping_dict[int(label)] for label in y])
+    return new_y
+
+
+
+# Remap CIFAR-10 labels
+y_train10_final = remap_labels(y_train10_filt, cifar10_to_final)
+y_test10_final  = remap_labels(y_test10_filt,  cifar10_to_final)
+
+# Remap CIFAR-100 labels
+y_train100_final = remap_labels(y_train100_filt, cifar100_to_final)
+y_test100_final  = remap_labels(y_test100_filt,  cifar100_to_final)
+
+
+
+#Below code to combine the filtered and mapped data. Created in chatgpt - Luke
+# Combine training sets
+X_train = np.concatenate([x_train10_filt, x_train100_filt], axis=0)
+y_train = np.concatenate([y_train10_final, y_train100_final], axis=0)
+# Combine test sets
+X_test = np.concatenate([x_test10_filt, x_test100_filt], axis=0)
+y_test = np.concatenate([y_test10_final, y_test100_final], axis=0)
+
+print("Combined training set:", X_train.shape, y_train.shape)
+print("Combined test set:", X_test.shape, y_test.shape)
