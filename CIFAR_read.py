@@ -31,7 +31,32 @@ cifar100_classes = [
     'train','trout','tulip','turtle','wardrobe','whale','willow_tree','wolf','woman','worm'
 ]
 
-cifar100_relevant = [19, 34, 2, 11, 35, 76, 38, 57, 84, 27, 8, 13, 48, 58, 92, 61, 99]  
+#cifar100_relevant = [19, 34, 2, 11, 35, 76, 38, 57, 84, 27, 8, 13, 48, 58, 92, 61, 99]  
+
+# CIFAR-100 fixed 
+cifar100_relevant = [
+    19,  # cattle
+    34,  # fox
+    2,   # baby
+    11,  # boy
+    35,  # girl
+    46,  # man
+    98,  # woman
+    65,  # rabbit
+    80,  # squirrel
+    47,  # maple_tree (tree)
+    52,  # oak_tree (tree)
+    56,  # palm_tree (tree)
+    59,  # pine_tree (tree)
+    96,  # willow_tree (tree)
+    8,   # bicycle
+    13,  # bus
+    48,  # motorcycle
+    58,  # pickup_truck
+    90,  # train
+    41,  # lawn-mower
+    89   # tractor
+]
 
 
 
