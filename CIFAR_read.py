@@ -45,11 +45,11 @@ cifar100_relevant = [
     98,  # woman
     65,  # rabbit
     80,  # squirrel
-    47,  # maple_tree (tree)
-    52,  # oak_tree (tree)
-    56,  # palm_tree (tree)
-    59,  # pine_tree (tree)
-    96,  # willow_tree (tree)
+    47,  # maple_tree
+    52,  # oak_tree
+    56,  # palm_tree
+    59,  # pine_tree
+    96,  # willow_tree
     8,   # bicycle
     13,  # bus
     48,  # motorcycle
@@ -57,6 +57,16 @@ cifar100_relevant = [
     90,  # train
     41,  # lawn-mower
     89   # tractor
+]
+
+
+
+
+final_classes = [ # CIFAR-10
+                    "automobile", "bird", "cat", "deer", "dog", "horse", "truck",
+    # CIFAR-100
+    "cattle", "fox", "baby", "boy", "girl", "man", "woman", "rabbit", "squirrel", "trees",
+    "bicycle", "bus", "motorcycle", "pickup_truck", "train", "lawn-mower", "tractor"
 ]
 
 
