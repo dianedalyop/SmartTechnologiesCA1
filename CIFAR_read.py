@@ -169,3 +169,8 @@ X_test  = X_test.astype("float32") / 255.0
 
 print("Normalized training :", X_train.shape)
 print("Normalized test :", X_test.shape)
+
+
+shuffle_indices = np.random.permutation(len(X_train))
+X_train = X_train[shuffle_indices]
+y_train = y_train[shuffle_indices]
