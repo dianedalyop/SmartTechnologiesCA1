@@ -174,3 +174,10 @@ print("Normalized test :", X_test.shape)
 shuffle_indices = np.random.permutation(len(X_train))
 X_train = X_train[shuffle_indices]
 y_train = y_train[shuffle_indices]
+
+#conversion to one-hot encode - ChatGpt -Diane
+num_classes = 24
+y_train_oneh = keras.utils.to_categorical(y_train, num_classes)
+y_test_oneh  = keras.utils.to_categorical(y_test, num_classes)
+
+print("One-hot labels:", y_train_oneh.shape, y_test_oneh.shape)
