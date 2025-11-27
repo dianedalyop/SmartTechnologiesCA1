@@ -161,3 +161,11 @@ y_test = np.concatenate([y_test10_final, y_test100_final], axis=0)
 
 print("Combined training set:", X_train.shape, y_train.shape)
 print("Combined test set:", X_test.shape, y_test.shape)
+
+
+# Normalizing pixel values range (0, 1) - Diane
+X_train = X_train.astype("float32") / 255.0
+X_test  = X_test.astype("float32") / 255.0
+
+print("Normalized training :", X_train.shape)
+print("Normalized test :", X_test.shape)
