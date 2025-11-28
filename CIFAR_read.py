@@ -223,3 +223,15 @@ plt.xticks(unique)
 plt.grid(axis='y', linestyle='--', alpha=0.5)
 
 plt.show()
+
+print("TRAIN vs TEST CLASS DISTRIBUTION ")
+unique_test, counts_test = np.unique(y_test, return_counts=True)
+
+plt.figure(figsize=(10,5))
+plt.plot(unique, counts, label="Train")
+plt.plot(unique_test, counts_test, label="Test")
+plt.title("Training vs Test Class Counts")
+plt.xlabel("Class")
+plt.ylabel("Frequency")
+plt.legend()
+plt.show()
