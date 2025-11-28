@@ -185,9 +185,19 @@ print("One-hot labels:", y_train_oneh.shape, y_test_oneh.shape)
 
 #Data Exploration PART 2
 
+#shapes
 print("Shapes")
 print("Training images:", X_train.shape)
 print("Training labels:", y_train.shape)
 print("Test images:", X_test.shape)
 print("Test labels:", y_test.shape)
 print(" ")
+
+print("IMAGE GRID confirms labels match images ") 
+plt.figure(figsize=(12,6))
+for i in range(20):
+    plt.subplot(4, 5, i+1)
+    plt.imshow(X_train[i])
+    plt.title(f"Class {y_train[i]}")
+    plt.axis("off")
+plt.show()
