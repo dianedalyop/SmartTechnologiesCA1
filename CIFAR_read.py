@@ -193,6 +193,7 @@ print("Test images:", X_test.shape)
 print("Test labels:", y_test.shape)
 print(" ")
 
+
 print("IMAGE GRID confirms labels match images ") 
 plt.figure(figsize=(12,6))
 for i in range(20):
@@ -200,4 +201,25 @@ for i in range(20):
     plt.imshow(X_train[i])
     plt.title(f"Class {y_train[i]}")
     plt.axis("off")
+plt.show()
+
+print("CLASS DISTRIBUTION")
+unique, counts = np.unique(y_train, return_counts=True)
+for u, c in zip(unique, counts):
+    print(f"Class {u}: {c} samples")
+
+ 
+
+unique, counts = np.unique(y_train, return_counts=True)
+
+plt.figure(figsize=(12, 6))
+plt.bar(unique, counts)
+
+plt.title("Distribution of class in Training Dataset", fontsize=14)
+plt.xlabel("Class Index (0 → 23)", fontsize=12)
+plt.ylabel("Number of Samples", fontsize=12)
+
+plt.xticks(unique)  
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+
 plt.show()
