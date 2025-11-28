@@ -4,6 +4,7 @@ from keras import layers
 import numpy as np
 import matplotlib.pyplot as plt
 from tensorflow.keras.datasets import cifar10, cifar100
+import matplotlib.pyplot as plt
 
 
 (x_train_10, y_train_10), (x_test_10, y_test_10) = cifar10.load_data()
@@ -181,3 +182,12 @@ y_train_oneh = keras.utils.to_categorical(y_train, num_classes)
 y_test_oneh  = keras.utils.to_categorical(y_test, num_classes)
 
 print("One-hot labels:", y_train_oneh.shape, y_test_oneh.shape)
+
+#Data Exploration PART 2
+
+print("Shapes")
+print("Training images:", X_train.shape)
+print("Training labels:", y_train.shape)
+print("Test images:", X_test.shape)
+print("Test labels:", y_test.shape)
+print(" ")
