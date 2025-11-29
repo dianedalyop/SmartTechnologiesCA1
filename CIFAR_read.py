@@ -277,3 +277,29 @@ print("Train subset shape:", X_train_part.shape, y_train_part.shape)
 print("Validation subset shape:", X_valid.shape, y_valid.shape)
 
 
+
+def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
+    print(model.summary())
+    #Train model
+    history = model.fit(X_train, y_train, epochs=10, batch_size=400, validation_data=(X_valid, y_valid), verbose=1, shuffle=1)
+    #Plot training vs validation accuracy
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.legend(['training', 'validation'])
+    plt.title('Accuracy')
+    plt.xlabel('Epoch')
+    plt.show()
+    # Plot training vs validation loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.legend(['training', 'validation'])
+    plt.title('Loss')
+    plt.xlabel('Epoch')
+    plt.show()
+    # Evaluate on the test set
+    score = model.evaluate(X_test, y_test, verbose=0)
+    print('Test score:', score[0])
+    print('Test accuracy:', score[1])
+
+
+
