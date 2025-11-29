@@ -3,6 +3,10 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
+from tensorflow.keras.optimizers import Adam
+
 
 
 from tensorflow.keras.datasets import cifar10, cifar100
@@ -259,3 +263,17 @@ def build_cnn_model(num_classes):
     model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])     #prepare model for training.
 
     return model
+
+
+
+#Training the model (Chatgpt - Luke)
+val_fraction = 0.2     # use 20 percent of training data for validation
+num_train = int((1 - val_fraction) * X_train.shape[0])
+X_train_part = X_train[:num_train]
+y_train_part = y_train_oneh[:num_train]
+X_valid = X_train[num_train:]
+y_valid = y_train_oneh[num_train:]
+print("Train subset shape:", X_train_part.shape, y_train_part.shape)
+print("Validation subset shape:", X_valid.shape, y_valid.shape)
+
+
