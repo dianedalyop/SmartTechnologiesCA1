@@ -1,10 +1,12 @@
+import numpy as np
+import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow import keras
 from keras import layers
-import numpy as np
-import matplotlib.pyplot as plt
+
+
 from tensorflow.keras.datasets import cifar10, cifar100
-import matplotlib.pyplot as plt
+
 
 
 (x_train_10, y_train_10), (x_test_10, y_test_10) = cifar10.load_data()
@@ -235,3 +237,25 @@ plt.xlabel("Class")
 plt.ylabel("Frequency")
 plt.legend()
 plt.show()
+
+
+
+
+##Building the model - Luke
+num_classes=24
+
+def build_cnn_model(num_classes):
+    model = Sequential()   
+    model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 3), activation='relu'))   #convolutional layers
+    model.add(Conv2D(60, (5, 5), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))   #make images smaller for faster training
+    model.add(Conv2D(30, (3, 3), activation='relu'))  #convolutional layers
+    model.add(Conv2D(30, (3, 3), activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2))) #make images smaller again
+    model.add(Flatten()) #flatten map
+    model.add(Dense(500, activation='relu'))      # a connected layer with 500 neurons.
+    model.add(Dropout(0.5))     # turns 50% of neurons off during training. to reduce overfitting.
+    model.add(Dense(num_classes, activation='softmax')) #final output layer.
+    model.compile(Adam(learning_rate=0.001), loss='categorical_crossentropy', metrics=['accuracy'])     #prepare model for training.
+
+    return model
