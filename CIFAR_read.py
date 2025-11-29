@@ -302,4 +302,6 @@ def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
     print('Test accuracy:', score[1])
 
 
-
+##Build the model and training and evaluation. Luke.
+model = build_cnn_model(num_classes)
+evaluate_model(model, X_train_part, y_train_part, X_valid, y_valid, X_test, y_test_oneh)
