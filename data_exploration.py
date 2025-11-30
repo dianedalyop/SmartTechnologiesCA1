@@ -109,3 +109,33 @@ plt.ylabel("Count")
 
 plt.tight_layout()
 plt.show()
+
+print("AVERAGE IMAGE / CLASS")
+num_classes = len(unique)
+cols = 5
+rows = int(np.ceil(num_classes / cols))
+plt.figure(figsize=(cols*2.2, rows*2.2))
+for idx, cls in enumerate(unique):
+    imgs = X_train[y_train == cls]
+    avg_img = np.mean(imgs, axis=0)
+    plt.subplot(rows, cols, idx+1)
+    plt.imshow(avg_img)
+    plt.title(f"Class {cls}")
+    plt.axis("off")
+plt.suptitle("Average Image per Class")
+plt.tight_layout()
+plt.show()
+
+print("STD-DEV IMAGE PER CLASS")
+plt.figure(figsize=(cols*2.2, rows*2.2))
+for idx, cls in enumerate(unique):
+    imgs = X_train[y_train == cls]
+    std_img = np.std(imgs, axis=0)
+    plt.subplot(rows, cols, idx+1)
+    plt.imshow(std_img)
+    plt.title(f"Std Class {cls}")
+    plt.axis("off")
+plt.suptitle("Std-dev Image per Class ")
+plt.tight_layout()
+plt.show()
+
