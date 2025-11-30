@@ -189,6 +189,8 @@ y_test_oneh  = keras.utils.to_categorical(y_test, num_classes)
 
 print("One-hot labels:", y_train_oneh.shape, y_test_oneh.shape)
 
+
+
 #Data Exploration PART 2
 
 #shapes
@@ -243,6 +245,12 @@ plt.legend()
 plt.show()
 
 
+np.save("X_train.npy", X_train)
+np.save("y_train.npy", y_train)
+np.save("X_test.npy", X_test)
+np.save("y_test.npy", y_test)
+
+print("Saved processed data successfully!")
 
 
 ##Building the model - Luke

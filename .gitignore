@@ -1,3 +1,4 @@
 cifar10.gz
 cifar100.gz
 .venv
+*.npy
