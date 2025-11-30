@@ -14,7 +14,7 @@ print("y_test:", y_test.shape)
 
 #Data Exploration PART 2
 
-#shapes
+#shapes 1
 print("Shapes")
 print("Training images:", X_train.shape)
 print("Training labels:", y_train.shape)
@@ -22,7 +22,7 @@ print("Test images:", X_test.shape)
 print("Test labels:", y_test.shape)
 print(" ")
 
-
+# Labels 2
 print("IMAGE GRID confirms labels match images ") 
 plt.figure(figsize=(12,6))
 for i in range(20):
@@ -32,6 +32,7 @@ for i in range(20):
     plt.axis("off")
 plt.show()
 
+#class dist 3
 print("CLASS DISTRIBUTION")
 unique, counts = np.unique(y_train, return_counts=True)
 for u, c in zip(unique, counts):
@@ -44,6 +45,7 @@ unique, counts = np.unique(y_train, return_counts=True)
 plt.figure(figsize=(12, 6))
 plt.bar(unique, counts)
 
+#Trainning dataset dist 4
 plt.title("Distribution of class in Training Dataset", fontsize=14)
 plt.xlabel("Class Index (0 → 23)", fontsize=12)
 plt.ylabel("Number of Samples", fontsize=12)
@@ -53,6 +55,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.5)
 
 plt.show()
 
+#Test vs Train distribution 5
 print("TRAIN vs TEST CLASS DISTRIBUTION ")
 unique_test, counts_test = np.unique(y_test, return_counts=True)
 
@@ -65,13 +68,14 @@ plt.ylabel("Frequency")
 plt.legend()
 plt.show()
 
-
+# stats of pixels 6
 print("PIXEL STATISTICS")  # source Chat-GPT
 print("Min:", np.min(X_train))
 print("Max:", np.max(X_train))
 print("Mean:", np.mean(X_train))
 print("Std:", np.std(X_train))
 
+# channel stats 7
 print(" CHANNEL STATS")
 R_mean = np.mean(X_train[:,:,:,0])
 G_mean = np.mean(X_train[:,:,:,1])
@@ -90,6 +94,7 @@ plt.title("Average Pixel Intensity per Channel")
 plt.tight_layout()
 plt.show()
 
+# brightness and contrast distribution 8
 print("BRIGHTNESS & CONTRAST DISTRIBUTION") # Diane wt Copilot
 brightness = np.mean(X_train, axis=(1,2,3))
 contrast = np.std(X_train, axis=(1,2,3))
@@ -110,6 +115,7 @@ plt.ylabel("Count")
 plt.tight_layout()
 plt.show()
 
+# Average Image per class 9 
 print("AVERAGE IMAGE / CLASS")
 num_classes = len(unique)
 cols = 5
@@ -126,6 +132,7 @@ plt.suptitle("Average Image per Class")
 plt.tight_layout()
 plt.show()
 
+# standard-dev image per class 10
 print("STD-DEV IMAGE PER CLASS")
 plt.figure(figsize=(cols*2.2, rows*2.2))
 for idx, cls in enumerate(unique):
