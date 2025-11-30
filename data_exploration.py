@@ -89,3 +89,23 @@ plt.bar(["R","G","B"], [R_mean, G_mean, B_mean])
 plt.title("Average Pixel Intensity per Channel")
 plt.tight_layout()
 plt.show()
+
+print("BRIGHTNESS & CONTRAST DISTRIBUTION") # Diane wt Copilot
+brightness = np.mean(X_train, axis=(1,2,3))
+contrast = np.std(X_train, axis=(1,2,3))
+
+plt.figure(figsize=(12,4))
+plt.subplot(1,2,1)
+plt.hist(brightness, bins=40)
+plt.title("Brightness Distribution (mean pixel)")
+plt.xlabel("Brightness")
+plt.ylabel("Count")
+
+plt.subplot(1,2,2)
+plt.hist(contrast, bins=40)
+plt.title("Contrast Distribution (std dev)")
+plt.xlabel("Contrast")
+plt.ylabel("Count")
+
+plt.tight_layout()
+plt.show()
