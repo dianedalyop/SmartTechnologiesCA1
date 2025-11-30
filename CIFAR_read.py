@@ -257,3 +257,26 @@ def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
 ##Build the model and training and evaluation. Luke.
 model = build_cnn_model(num_classes)
 evaluate_model(model, X_train_part, y_train_part, X_valid, y_valid, X_test, y_test_oneh)
+
+# TESTING THE MODEL - Diane 
+
+# Tweaking hyperparameters 
+
+
+print("Smaller Learning Rate & Batch Size")
+
+model_tuned = build_cnn_model(num_classes)
+model_tuned.compile(optimizer=Adam(learning_rate=0.0005),
+                    loss='categorical_crossentropy',
+                    metrics=['accuracy'])
+
+history_tuned = model_tuned.fit(
+    X_train_part, y_train_part,
+    epochs=10,
+    batch_size=200, 
+    validation_data=(X_valid, y_valid),
+    verbose=1
+)
+score_tuned = model_tuned.evaluate(X_test, y_test_oneh, verbose=0)
+print("TunedTest Loss:", score_tuned[0])
+print("TunedTest Accuracy:", score_tuned[1])
