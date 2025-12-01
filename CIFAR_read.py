@@ -203,7 +203,11 @@ X_train = X_train.reshape(-1, 32, 32, 1) #reshape as keras conv2d needs 4d input
 X_test = X_test.reshape(-1, 32, 32, 1)
 print("Reshaped for CNN: ", X_train.shape)
 print("Reshaped test: ",X_test.shape)
-
+#sanity checks
+assert X_train.shape[1:] == (32, 32, 1), "The dimension of the training images not 32x32x1"
+assert X_test.shape[1:] == (32, 32, 1), "The dimension of the test images is not 32x32x1"
+assert X_train.shape[0] == y_train.shape[0], "The number of training images is not equal to the number of labels"
+assert X_test.shape[0] == y_test.shape[0], "The number of test images is not equal to the number of labels"
 
 
 
