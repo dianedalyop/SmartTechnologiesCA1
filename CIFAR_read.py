@@ -1,3 +1,5 @@
+import random
+import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
@@ -6,11 +8,7 @@ from keras import layers
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropout
 from tensorflow.keras.optimizers import Adam
-
-import random
-
-
-
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.datasets import cifar10, cifar100
 
 
@@ -160,6 +158,25 @@ y_test100_final  = remap_labels(y_test100_filt,  cifar100_to_final)
 
 
 
+
+####Image Preprocessing
+def preprocessing(img):
+    img = grayscale(img) #convert to grayscale
+    img = equalise(img)  #equalizing histogram
+    img = img / 255      #normalization  to 0,1
+    return img
+
+def grayscale(img):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) # convert to 32x32 grayscale
+    return img
+
+def equalise(img):
+    img = cv2.equalizeHist(img)
+    return img
+
+
+
+
 #Below code to combine the filtered and mapped data. Created in chatgpt - Luke
 # Combine training sets
 X_train = np.concatenate([x_train10_filt, x_train100_filt], axis=0)
@@ -288,7 +305,7 @@ print("TunedTest Loss:", score_tuned[0])
 print("TunedTest Accuracy:", score_tuned[1])
 
 
-# Random Test Image Prediction Test 4 wt - Chat GPT
+# Random Test Image Prediction Test 4 wt - Chat GPT - Diane
 
 idx = random.randint(0, len(X_test)-1)
 random_image = X_test[idx]
