@@ -161,9 +161,10 @@ y_test100_final  = remap_labels(y_test100_filt,  cifar100_to_final)
 
 ####Image Preprocessing
 def preprocessing(img):
-    img = grayscale(img) #convert to grayscale
-    img = equalise(img)  #equalizing histogram
-    img = img / 255      #normalization  to 0,1
+    img = grayscale(img)                    #convert to grayscale
+    img = cv2.GaussianBlur(img,(3, 3),0)    #gaussian blur. (3x3 window), (0 means the blur strength is automatic) Got this line from ChatGPT - Luke.
+    img = equalise(img)                     #equalizing histogram
+    img = img / 255                         #normalization  to 0,1
     return img
 
 def grayscale(img):
@@ -190,11 +191,20 @@ print("Combined test set:", X_test.shape, y_test.shape)
 
 
 # Normalizing pixel values range (0, 1) - Diane
-X_train = X_train.astype("float32") / 255.0
-X_test  = X_test.astype("float32") / 255.0
+# X_train = X_train.astype("float32") / 255.0
+# X_test  = X_test.astype("float32") / 255.0
+# print("Normalized training :", X_train.shape)
+# print("Normalized test :", X_test.shape)
+###Luke - preprocessing and reshape
+X_train = np.array(list(map(preprocessing, X_train)))
+X_test = np.array(list(map(preprocessing, X_test)))
+print("After preprocessing: ", X_train.shape,X_test.shape)
+X_train = X_train.reshape(-1, 32, 32, 1) #reshape as keras conv2d needs 4d input
+X_test = X_test.reshape(-1, 32, 32, 1)
+print("Reshaped for CNN: ", X_train.shape)
+print("Reshaped test: ",X_test.shape)
 
-print("Normalized training :", X_train.shape)
-print("Normalized test :", X_test.shape)
+
 
 
 shuffle_indices = np.random.permutation(len(X_train))
@@ -221,7 +231,7 @@ num_classes=24
 
 def build_cnn_model(num_classes):
     model = Sequential()   
-    model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 3), activation='relu'))   #convolutional layers
+    model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))   #convolutional layers
     model.add(Conv2D(60, (5, 5), activation='relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))   #make images smaller for faster training
     model.add(Conv2D(30, (3, 3), activation='relu'))  #convolutional layers
