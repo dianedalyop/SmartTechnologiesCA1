@@ -76,23 +76,31 @@ print("Mean:", np.mean(X_train))
 print("Std:", np.std(X_train))
 
 # channel stats 7
-print(" CHANNEL STATS")
-R_mean = np.mean(X_train[:,:,:,0])
-G_mean = np.mean(X_train[:,:,:,1])
-B_mean = np.mean(X_train[:,:,:,2])
-R_std  = np.std(X_train[:,:,:,0])
-G_std  = np.std(X_train[:,:,:,1])
-B_std  = np.std(X_train[:,:,:,2])
+#(grayscale now. only 1 channel) - fixes error "IndexError: index 1 is out of bounds for axis 3 with size 1". made in chatgpt. luke.
+print(" CHANNEL STATS (grayscale)")
+mean_gray = np.mean(X_train)
+std_gray  = np.std(X_train)
+print(f"Mean intensity: {mean_gray:.4f}, std: {std_gray:.4f}")
 
-print(f"Red mean: {R_mean:.4f}, std: {R_std:.4f}")
-print(f"Green mean: {G_mean:.4f}, std: {G_std:.4f}")
-print(f"Blue mean: {B_mean:.4f}, std: {B_std:.4f}")
+# print(" CHANNEL STATS")
+# R_mean = np.mean(X_train[:,:,:,0])
+# G_mean = np.mean(X_train[:,:,:,1])
+# B_mean = np.mean(X_train[:,:,:,2])
+# R_std  = np.std(X_train[:,:,:,0])
+# G_std  = np.std(X_train[:,:,:,1])
+# B_std  = np.std(X_train[:,:,:,2])
 
-plt.figure(figsize=(6,4))
-plt.bar(["R","G","B"], [R_mean, G_mean, B_mean])
-plt.title("Average Pixel Intensity per Channel")
-plt.tight_layout()
-plt.show()
+# print(f"Red mean: {R_mean:.4f}, std: {R_std:.4f}")
+# print(f"Green mean: {G_mean:.4f}, std: {G_std:.4f}")
+# print(f"Blue mean: {B_mean:.4f}, std: {B_std:.4f}")
+
+# plt.figure(figsize=(6,4))
+# plt.bar(["R","G","B"], [R_mean, G_mean, B_mean])
+# plt.title("Average Pixel Intensity per Channel")
+# plt.tight_layout()
+# plt.show()
+
+
 
 # brightness and contrast distribution 8
 print("BRIGHTNESS & CONTRAST DISTRIBUTION") # Diane wt Copilot
