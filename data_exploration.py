@@ -27,7 +27,7 @@ print("IMAGE GRID confirms labels match images ")
 plt.figure(figsize=(12,6))
 for i in range(20):
     plt.subplot(4, 5, i+1)
-    plt.imshow(X_train[i])
+    plt.imshow(X_train[i].squeeze(), cmap="gray") #grayscale
     plt.title(f"Class {y_train[i]}")
     plt.axis("off")
 plt.show()
@@ -133,7 +133,7 @@ for idx, cls in enumerate(unique):
     imgs = X_train[y_train == cls]
     avg_img = np.mean(imgs, axis=0)
     plt.subplot(rows, cols, idx+1)
-    plt.imshow(avg_img)
+    plt.imshow(avg_img.squeeze(), cmap="gray")   #grayscale
     plt.title(f"Class {cls}")
     plt.axis("off")
 plt.suptitle("Average Image per Class")
@@ -147,7 +147,7 @@ for idx, cls in enumerate(unique):
     imgs = X_train[y_train == cls]
     std_img = np.std(imgs, axis=0)
     plt.subplot(rows, cols, idx+1)
-    plt.imshow(std_img)
+    plt.imshow(std_img.squeeze(), cmap="gray")   #grayscale
     plt.title(f"Std Class {cls}")
     plt.axis("off")
 plt.suptitle("Std-dev Image per Class ")
