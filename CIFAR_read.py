@@ -251,7 +251,8 @@ def build_cnn_model(num_classes):
 
 
 
-#Training the model (Chatgpt - Luke)
+#Training the model. 
+# Splitting the training into train + validation. (Chatgpt - Luke). 
 val_fraction = 0.2     # use 20 percent of training data for validation
 num_train = int((1 - val_fraction) * X_train.shape[0])
 X_train_part = X_train[:num_train]
@@ -263,6 +264,7 @@ print("Validation subset shape:", X_valid.shape, y_valid.shape)
 
 
 #Luke
+# like german signs example.
 def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
     print(model.summary())
     #Train model
@@ -289,10 +291,11 @@ def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
 
 ##Build the model and training and evaluation. Luke.
 #Base model. no augmentation.
+print("model 1 – base CNN no augmentation")
 model = build_cnn_model(num_classes)
 evaluate_model(model, X_train_part, y_train_part, X_valid, y_valid, X_test, y_test_oneh)
 
-
+#model 3 function
 #using data augmentation, evaluate model like in class example
 def evaluate_model_with_augmentation(model, datagen, X_train, y_train, X_valid, y_valid, X_test, y_test):
     print(model.summary())
@@ -328,9 +331,10 @@ def evaluate_model_with_augmentation(model, datagen, X_train, y_train, X_valid, 
 
 
 
+
+
+
 # TESTING THE MODEL - Diane 
-
-
 
 # Tweaking hyperparameters Test 1 - Diane
 # Model 2 - smaller learning rate and batch size
@@ -356,10 +360,36 @@ print("TunedTest Accuracy:", score_tuned[1])
 
 
 
+#Model 3 - CNN with data augmentation - Luke
+### Following created in chatgpt
+print("MODEL 3 – CNN with Data Augmentation")
+datagen = ImageDataGenerator(
+    rotation_range=10,
+    width_shift_range=0.1,
+    height_shift_range=0.1,
+    zoom_range=0.1
+)
+
+datagen.fit(X_train_part)
+model_aug = build_cnn_model(num_classes)
+
+evaluate_model_with_augmentation(
+    model_aug,
+    datagen,
+    X_train_part, y_train_part,
+    X_valid, y_valid,
+    X_test, y_test_oneh
+)
+###
+
+
+
+
+
+
 
 
 # Random Test Image Prediction Test 4 wt - Chat GPT - Diane
-
 idx = random.randint(0, len(X_test)-1)
 random_image = X_test[idx]
 true_label = np.argmax(y_test_oneh[idx])
