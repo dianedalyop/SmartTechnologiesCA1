@@ -394,12 +394,13 @@ idx = random.randint(0, len(X_test)-1)
 random_image = X_test[idx]
 true_label = np.argmax(y_test_oneh[idx])
 
-plt.imshow(random_image)
+# plt.imshow(random_image)
+plt.imshow(random_image.squeeze(), cmap="gray") #tells matplotlib its a grayscale image
 plt.title(f"True Label: {true_label}")
 plt.axis("off")
 plt.show()
 
-prediction = model.predict(random_image.reshape(1,32,32,3))
+prediction = model.predict(random_image.reshape(1,32,32,1))
 pred_label = np.argmax(prediction)
 
 print("Predicted Label:", pred_label)
