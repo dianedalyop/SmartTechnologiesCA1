@@ -232,7 +232,7 @@ print("Saved processed data successfully!")
 
 ##Building the model - Luke
 num_classes=24
-
+#model 1
 def build_cnn_model(num_classes):
     model = Sequential()   
     model.add(Conv2D(60, (5, 5), input_shape=(32, 32, 1), activation='relu'))   #convolutional layers
@@ -262,7 +262,7 @@ print("Train subset shape:", X_train_part.shape, y_train_part.shape)
 print("Validation subset shape:", X_valid.shape, y_valid.shape)
 
 
-
+#Luke
 def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
     print(model.summary())
     #Train model
@@ -288,8 +288,43 @@ def evaluate_model(model, X_train, y_train, X_valid, y_valid, X_test, y_test):
 
 
 ##Build the model and training and evaluation. Luke.
+#Base model. no augmentation.
 model = build_cnn_model(num_classes)
 evaluate_model(model, X_train_part, y_train_part, X_valid, y_valid, X_test, y_test_oneh)
+
+
+#using data augmentation, evaluate model like in class example
+def evaluate_model_with_augmentation(model, datagen, X_train, y_train, X_valid, y_valid, X_test, y_test):
+    print(model.summary())
+    
+    # train using the image data generator - Following function made with chatgpt
+    history = model.fit(
+        datagen.flow(X_train, y_train, batch_size=200),
+        epochs=10,
+        steps_per_epoch=len(X_train) // 200,
+        validation_data=(X_valid, y_valid),
+        verbose=1,
+        shuffle=1
+    )
+    #plot training vs validation accuracy
+    plt.plot(history.history['accuracy'])
+    plt.plot(history.history['val_accuracy'])
+    plt.legend(['training', 'validation'])
+    plt.title('Accuracy (with augmentation)')
+    plt.xlabel('Epoch')
+    plt.show()
+    #plot training vs validation loss
+    plt.plot(history.history['loss'])
+    plt.plot(history.history['val_loss'])
+    plt.legend(['training', 'validation'])
+    plt.title('Loss with augmentation')
+    plt.xlabel('Epoch')
+    plt.show()
+    #evaluate on the test set
+    score = model.evaluate(X_test, y_test, verbose=0)
+    print('Augmented Test score:', score[0])
+    print('Augmented Test accuracy:', score[1])
+
 
 
 
@@ -297,8 +332,8 @@ evaluate_model(model, X_train_part, y_train_part, X_valid, y_valid, X_test, y_te
 
 
 
-# Tweaking hyperparameters Test 1
-
+# Tweaking hyperparameters Test 1 - Diane
+# Model 2 - smaller learning rate and batch size
 
 print("Smaller Learning Rate & Batch Size")
 
@@ -317,6 +352,10 @@ history_tuned = model_tuned.fit(
 score_tuned = model_tuned.evaluate(X_test, y_test_oneh, verbose=0)
 print("TunedTest Loss:", score_tuned[0])
 print("TunedTest Accuracy:", score_tuned[1])
+
+
+
+
 
 
 # Random Test Image Prediction Test 4 wt - Chat GPT - Diane
