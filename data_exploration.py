@@ -75,24 +75,31 @@ print("Max:", np.max(X_train))
 print("Mean:", np.mean(X_train))
 print("Std:", np.std(X_train))
 
-# channel stats 7
-print(" CHANNEL STATS")
-R_mean = np.mean(X_train[:,:,:,0])
-G_mean = np.mean(X_train[:,:,:,1])
-B_mean = np.mean(X_train[:,:,:,2])
-R_std  = np.std(X_train[:,:,:,0])
-G_std  = np.std(X_train[:,:,:,1])
-B_std  = np.std(X_train[:,:,:,2])
+print("CHANNEL STATS (Grayscale Dataset)")
 
-print(f"Red mean: {R_mean:.4f}, std: {R_std:.4f}")
-print(f"Green mean: {G_mean:.4f}, std: {G_std:.4f}")
-print(f"Blue mean: {B_mean:.4f}, std: {B_std:.4f}")
+# Only one channel exists → intensity values (0 to 1)
+mean_intensity = np.mean(X_train)
+std_intensity = np.std(X_train)
 
+print(f"Mean Pixel Intensity: {mean_intensity:.4f}")
+print(f"Standard Deviation: {std_intensity:.4f}")
+
+# Histogram of intensities
 plt.figure(figsize=(6,4))
-plt.bar(["R","G","B"], [R_mean, G_mean, B_mean])
-plt.title("Average Pixel Intensity per Channel")
+plt.hist(X_train.flatten(), bins=50, color='gray', edgecolor='black')
+plt.title("Histogram of Pixel Intensities (Grayscale)")
+plt.xlabel("Pixel Intensity")
+plt.ylabel("Frequency")
 plt.tight_layout()
 plt.show()
+
+# Bar plot (simple representation)
+plt.figure(figsize=(4,4))
+plt.bar(["Intensity Mean"], [mean_intensity], color='black')
+plt.title("Average Pixel Intensity (Grayscale)")
+plt.tight_layout()
+plt.show()
+
 
 # brightness and contrast distribution 8
 print("BRIGHTNESS & CONTRAST DISTRIBUTION") # Diane wt Copilot

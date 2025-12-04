@@ -10,6 +10,10 @@ from tensorflow.keras.layers import Conv2D, MaxPooling2D, Flatten, Dense, Dropou
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.datasets import cifar10, cifar100
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+
+
 
 
 
@@ -330,6 +334,11 @@ plt.title(f"True Label: {true_label}")
 plt.axis("off")
 plt.show()
 
+# Ensure the image is 32x32x3
+if random_image.ndim == 2:
+    # Convert grayscale → RGB
+    random_image = np.repeat(random_image[:, :, np.newaxis], 3, axis=2)
+
 prediction = model.predict(random_image.reshape(1,32,32,3))
 pred_label = np.argmax(prediction)
 
@@ -337,3 +346,23 @@ print("Predicted Label:", pred_label)
 
 
 # Accuracy and loss covered in Model building
+
+#CONFUSION MATRIX TESTING 
+
+from sklearn.metrics import confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+y_pred = model.predict(X_test)
+y_pred_labels = np.argmax(y_pred, axis=1)
+y_true_labels = np.argmax(y_test_oneh, axis=1)
+
+cm = confusion_matrix(y_true_labels, y_pred_labels)
+plt.figure(figsize=(14,10))
+sns.heatmap(cm, annot=False, cmap="Blues")
+plt.title("Confusion Matrix")
+plt.xlabel("Predicted")
+plt.ylabel("True")
+plt.show()
+
+
