@@ -27,7 +27,7 @@ print("IMAGE GRID confirms labels match images ")
 plt.figure(figsize=(12,6))
 for i in range(20):
     plt.subplot(4, 5, i+1)
-    plt.imshow(X_train[i])
+    plt.imshow(X_train[i].squeeze(), cmap="gray") #grayscale
     plt.title(f"Class {y_train[i]}")
     plt.axis("off")
 plt.show()
@@ -75,6 +75,7 @@ print("Max:", np.max(X_train))
 print("Mean:", np.mean(X_train))
 print("Std:", np.std(X_train))
 
+<<<<<<< HEAD
 print("CHANNEL STATS (Grayscale Dataset)")
 
 # Only one channel exists → intensity values (0 to 1)
@@ -92,6 +93,34 @@ plt.xlabel("Pixel Intensity")
 plt.ylabel("Frequency")
 plt.tight_layout()
 plt.show()
+=======
+# channel stats 7
+#(grayscale now. only 1 channel) - fixes error "IndexError: index 1 is out of bounds for axis 3 with size 1". made in chatgpt. luke.
+print(" CHANNEL STATS (grayscale)")
+mean_gray = np.mean(X_train)
+std_gray  = np.std(X_train)
+print(f"Mean intensity: {mean_gray:.4f}, std: {std_gray:.4f}")
+
+# print(" CHANNEL STATS")
+# R_mean = np.mean(X_train[:,:,:,0])
+# G_mean = np.mean(X_train[:,:,:,1])
+# B_mean = np.mean(X_train[:,:,:,2])
+# R_std  = np.std(X_train[:,:,:,0])
+# G_std  = np.std(X_train[:,:,:,1])
+# B_std  = np.std(X_train[:,:,:,2])
+
+# print(f"Red mean: {R_mean:.4f}, std: {R_std:.4f}")
+# print(f"Green mean: {G_mean:.4f}, std: {G_std:.4f}")
+# print(f"Blue mean: {B_mean:.4f}, std: {B_std:.4f}")
+
+# plt.figure(figsize=(6,4))
+# plt.bar(["R","G","B"], [R_mean, G_mean, B_mean])
+# plt.title("Average Pixel Intensity per Channel")
+# plt.tight_layout()
+# plt.show()
+
+
+>>>>>>> d68eb3470951b640d941dfb12b61d404be5424fa
 
 # Bar plot (simple representation)
 plt.figure(figsize=(4,4))
@@ -132,7 +161,7 @@ for idx, cls in enumerate(unique):
     imgs = X_train[y_train == cls]
     avg_img = np.mean(imgs, axis=0)
     plt.subplot(rows, cols, idx+1)
-    plt.imshow(avg_img)
+    plt.imshow(avg_img.squeeze(), cmap="gray")   #grayscale
     plt.title(f"Class {cls}")
     plt.axis("off")
 plt.suptitle("Average Image per Class")
@@ -146,7 +175,7 @@ for idx, cls in enumerate(unique):
     imgs = X_train[y_train == cls]
     std_img = np.std(imgs, axis=0)
     plt.subplot(rows, cols, idx+1)
-    plt.imshow(std_img)
+    plt.imshow(std_img.squeeze(), cmap="gray")   #grayscale
     plt.title(f"Std Class {cls}")
     plt.axis("off")
 plt.suptitle("Std-dev Image per Class ")
